@@ -1,3 +1,24 @@
 a {
     font-size: 20px;
 }
+.nav {
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav__search__profile__currency__cart{
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid red;
+}
+.nav__links{
+    width: 70%;
+}
+.nav__link{
+    margin-right: 20px;
+}
+.nav___medium{
+    width: 30px;
+    border: 2px solid black;
+}
