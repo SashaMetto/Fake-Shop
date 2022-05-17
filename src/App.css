@@ -22,3 +22,11 @@ a {
     width: 30px;
     border: 2px solid black;
 }
+.shoes-shop{
+    display: flex;
+}
+.shoes-wrapper{
+    border: 2px solid black;
+    width: 100%;
+    text-align: center;
+}

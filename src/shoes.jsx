@@ -64,10 +64,20 @@ export let sneakers = [
     },
   ];
 
-  export function getSneakerById(id) {
-    return sneakers.find(sneaker => sneaker.id === id);
+  export let brands = [...new Set(sneakers.map((sneaker) => sneaker.brand))];
+  export let prices = [...new Set(sneakers.map((sneaker) => sneaker.price))];
+
+  export function filterByBrand(brand) {
+    if(!brand) {
+      return sneakers
+    }
+    else {  
+    return sneakers.filter(
+      (sneaker) => sneaker.brand.toLowerCase() === brand.toLowerCase()
+    );
+    }
   }
 
-  export function getSneakerByBrand(brand) {
-    return sneakers.find(sneaker => sneaker.brand === brand);
+  export function getSneakerById(id) {
+    return sneakers.find(sneaker => sneaker.id === id);
   }
