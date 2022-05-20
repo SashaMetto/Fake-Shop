@@ -13,16 +13,6 @@ import Contact from "./routes/contact";
 
 const rootElement = document.getElementById("root");
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="cat1" element={<Cat1 />} />
-        <Route path="cat2" element={<Cat2 />} />
-        <Route path="cat3" element={<Cat3 />} />
-        <Route path="gall" element={<Gall />} />
-        <Route path="contact" element={<Contact />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <App/>,
   rootElement
 );
