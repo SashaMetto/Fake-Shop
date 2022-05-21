@@ -66,6 +66,7 @@ export let sneakers = [
 
   export let brands = [...new Set(sneakers.map((sneaker) => sneaker.brand))];
   export let prices = [...new Set(sneakers.map((sneaker) => sneaker.price))];
+  export let colors = [...new Set(sneakers.map((sneaker) => sneaker.colorway))];
 
   export function filterByBrand(brand) {
     if(!brand) {

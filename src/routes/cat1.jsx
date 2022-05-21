@@ -8,8 +8,9 @@ import {
   useParams,
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
-import {sneakers, brands, prices, filterByBrand, filterByPrice} from "../shoes.jsx";
-import { Context } from "../Context";
+import {sneakers, brands, colors, filterByBrand, filterByPrice} from "../shoes.jsx";
+import { Context, Context2 } from "../Context";
+import { AddCartItems } from "./cart";
 
 function Layout() {
   let [searchParams] = useSearchParams();
@@ -35,9 +36,9 @@ function Layout() {
       border: "2px solid red"
     }}
     >
-      <nav>
-        <h3>Filter by brand</h3>
+      <nav>        
         <ul>
+        <h3>Filter by brand</h3>
           <li>
             <Link to="/cat1">All</Link>
           </li>
@@ -46,9 +47,9 @@ function Layout() {
               <Link to={`/cat1?brand=${brand}`}>{brand}</Link>
             </li>
           ))}
-        </ul>
-        <h3>Filter by price</h3>
+        </ul>       
         <ul>
+        <h3>Filter by price</h3>
           <li>
             <Link to="/cat1">All</Link>
           </li>
@@ -61,7 +62,14 @@ function Layout() {
           <li>        
             <Link to={`/cat1?priceFrom=${200}&priceTo=${Infinity}`}>More than 200$</Link>
           </li>
-          <p>From:<input></input>to:<input></input></p>  
+        </ul>
+        <ul>
+        <h3>Filter by color</h3>
+        {colors.map((color) => (
+            <li key={color}>
+              <Link to={`/cat1?color=${color}`}>{color}</Link>
+            </li>
+          ))} 
         </ul>
       </nav>
     </div>
@@ -70,6 +78,14 @@ function Layout() {
 
 export default function Cat1() {
   const [sneak, setSneak] = useContext(Context);
+  const [cartItems, setCartItems] = useContext(Context2);
+
+  function addCartItems(item) { 
+    let copy = [...cartItems];
+    item.count = 1;
+    copy.push(item);
+    setCartItems(copy)
+}
     return (
       <main className="shoes-shop">
         <Layout/>
@@ -104,7 +120,7 @@ export default function Cat1() {
               <div>
                 <p>{name}</p>
                 <p>{color}</p>
-                <p>{price} <button>Add to cart</button></p>
+                <p>{price} <button onClick={()=>addCartItems(snkr)}>Add to cart</button></p>
               </div>
             </div>
           );
