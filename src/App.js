@@ -1,8 +1,10 @@
 import "./App.css";
+import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import search from "./images/search.webp"
 import profile from "./images/profile.webp"
 import cart from "./images/cart.png"
+import { Context } from "./Context.js";
 import {
   BrowserRouter,
   Routes,
@@ -13,20 +15,24 @@ import Cat2 from "./routes/cat2";
 import Cat3 from "./routes/cat3";
 import Gall from "./routes/gall";
 import Contact from "./routes/contact";
+import {sneakers, brands, prices, filterByBrand} from "./shoes.jsx";
 
 export default function App() {
+  const [context, setContext] = useState(sneakers);
   return (
-      <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<AppLayout />} >
-        <Route path="/cat1" element={<Cat1 />} />
-        <Route path="/cat2" element={<Cat2 />} />
-        <Route path="/cat3" element={<Cat3 />} />
-        <Route path="/gall" element={<Gall />} />
-        <Route path="/contact" element={<Contact />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
+    <Context.Provider value={[context, setContext]}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />} >
+          <Route path="/cat1" element={<Cat1 />} />
+          <Route path="/cat2" element={<Cat2 />} />
+          <Route path="/cat3" element={<Cat3 />} />
+          <Route path="/gall" element={<Gall />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Context.Provider>
   );
 }
 

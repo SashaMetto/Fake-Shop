@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useContext, useEffect} from "react";
 import {
   Routes,
   Route,
@@ -9,8 +9,25 @@ import {
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
 import {sneakers, brands, prices, filterByBrand} from "../shoes.jsx";
+import { Context } from "../Context";
 
 function Layout() {
+  let [searchParams] = useSearchParams();
+  const [sneak, setSneak] = useContext(Context);
+  useEffect(() => {
+    if (searchParams.get("brand")) {
+      setSneak((filterByBrand(searchParams.get("brand"))))
+    }
+    else if(searchParams.get("price")) {
+      setSneak((filterByBrand(searchParams.get("brand"))))
+    }
+    else {
+      setSneak(sneakers)
+    }
+    
+  }, [searchParams]);
+
+
   return (
     <div
     style={{
@@ -33,7 +50,7 @@ function Layout() {
         <h3>Filter by price</h3>
         <ul>
           <li>
-            <Link to="/">All</Link>
+            <Link to="/cat1">All</Link>
           </li>
           <li>
             <Link to="/">Lower than 100$</Link>
@@ -52,14 +69,12 @@ function Layout() {
 }
 
 export default function Cat1() {
-  let [searchParams] = useSearchParams();
-  let sneakers = (filterByBrand(searchParams.get("brand")));
+  const [sneak, setSneak] = useContext(Context);
     return (
       <main className="shoes-shop">
         <Layout/>
         <div className="shoes-wrapper">
         <h2>Shoes</h2>
-        {searchParams.get("brand")}
         <p>A shoe is an item of footwear intended to protect and comfort the human foot. Shoes are also used as an item of decoration and fashion.</p>
         <div
         style={{
@@ -68,7 +83,7 @@ export default function Cat1() {
           gap: "12px 24px",
         }}
       >
-        {sneakers.map((snkr) => {
+        {sneak.map((snkr) => {
           let name = `${snkr.brand} ${snkr.model}`;
           let color = snkr.colorway;
           let price = snkr.price;
