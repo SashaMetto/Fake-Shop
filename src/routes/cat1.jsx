@@ -8,7 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
-import {sneakers, brands, prices, filterByBrand} from "../shoes.jsx";
+import {sneakers, brands, prices, filterByBrand, filterByPrice} from "../shoes.jsx";
 import { Context } from "../Context";
 
 function Layout() {
@@ -18,8 +18,8 @@ function Layout() {
     if (searchParams.get("brand")) {
       setSneak((filterByBrand(searchParams.get("brand"))))
     }
-    else if(searchParams.get("price")) {
-      setSneak((filterByBrand(searchParams.get("brand"))))
+    else if(searchParams.get("priceTo")) {
+      setSneak((filterByPrice(searchParams.get("priceFrom"), searchParams.get("priceTo"))))
     }
     else {
       setSneak(sneakers)
@@ -53,13 +53,13 @@ function Layout() {
             <Link to="/cat1">All</Link>
           </li>
           <li>
-            <Link to="/">Lower than 100$</Link>
+            <Link to={`/cat1?priceFrom=${0}&priceTo=${100}`}>Lower than 100$</Link>
           </li>
           <li>
-            <Link to="/">Lower than 200$</Link>
+            <Link to={`/cat1?priceFrom=${100}&priceTo=${200}`}>From 100$ to 200$</Link>
           </li>
           <li>        
-            <Link to="/">More than 200$</Link>
+            <Link to={`/cat1?priceFrom=${200}&priceTo=${Infinity}`}>More than 200$</Link>
           </li>
           <p>From:<input></input>to:<input></input></p>  
         </ul>
@@ -86,7 +86,7 @@ export default function Cat1() {
         {sneak.map((snkr) => {
           let name = `${snkr.brand} ${snkr.model}`;
           let color = snkr.colorway;
-          let price = snkr.price;
+          let price = snkr.price + "$";
           return (
             <div key={snkr.id} style={{ position: "relative" }}>
               <img

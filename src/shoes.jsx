@@ -6,7 +6,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/bkkj0lqzlwlwdwtofqxs",
       model: "Blazer Low 77 Vintage",
       brand: "Nike",
-      price: "70$",
+      price: 70,
     },
     {
       id: "2",
@@ -15,7 +15,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/RPlzC_CBHjiMM4dr90gdU",
       model: "Air Max 90",
       brand: "Nike",
-      price: "110$",
+      price: 110,
     },
     {
       id: "3",
@@ -24,7 +24,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/0bf9336b-03c9-4cbd-b482-f4e80b770582",
       model: "Court Legacy",
       brand: "Nike",
-      price: "50$",
+      price: 50,
     },
     {
       id: "5",
@@ -33,7 +33,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/irxakb1ij0uzmcvn9szo",
       model: "Yeezy 350 v2",
       brand: "Adidas",
-      price: "220$",
+      price: 220,
     },
     {
       id: "6",
@@ -42,7 +42,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/g9tjjjdn476nhou1c1dj",
       model: "Grid SD",
       brand: "Saucony",
-      price: "40$",
+      price: 40,
     },
     {
       id: "7",
@@ -51,7 +51,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/erg1lxa8x29h1wtbog9a",
       model: "Checkerboard Slip-On",
       brand: "Vans",
-      price: "60$",
+      price: 60,
     },
     {
       id: "8",
@@ -60,7 +60,7 @@ export let sneakers = [
         "https://images.mcan.sh/b_auto,c_pad,f_auto,h_400,q_auto,w_400/v1/shoes/u4z27k4wyzr7bxatlfgj",
       model: "Air Max 1",
       brand: "Nike",
-      price: "150$",
+      price: 150,
     },
   ];
 
@@ -76,6 +76,14 @@ export let sneakers = [
       (sneaker) => sneaker.brand.toLowerCase() === brand.toLowerCase()
     );
     }
+  }
+
+  export function filterByPrice(from, to) {
+    return sneakers.filter(
+      (sneaker) => {
+        return (sneaker.price >= from && sneaker.price <= to)
+      }
+    );
   }
 
   export function getSneakerById(id) {
