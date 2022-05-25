@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Routes,
   Route,
@@ -6,6 +6,7 @@ import {
   Link,
   useSearchParams,
   useParams,
+  useNavigate,
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
 import {sneakers, brands, colors, filterByBrand, filterByPrice} from "../shoes.jsx";
@@ -13,11 +14,13 @@ import { Context, Context2 } from "../Context";
 import { AddCartItems } from "./cart";
 
 function Layout() {
-  let [searchParams] = useSearchParams();
+  let [searchParams, setSearchParams] = useSearchParams();
+  let [checkedState, setCheckedState] = useState(new Array(brands.length).fill(false));
+  let [test, setTest] = useState(new Array(brands.length).fill(false));
   const [sneak, setSneak] = useContext(Context);
-  useEffect(() => {
+   useEffect(() => {
     if (searchParams.get("brand")) {
-      setSneak((filterByBrand(searchParams.get("brand"))))
+      setSneak((filterByBrand(searchParams.getAll("brand"))))
     }
     else if(searchParams.get("priceTo")) {
       setSneak((filterByPrice(searchParams.get("priceFrom"), searchParams.get("priceTo"))))
@@ -28,6 +31,19 @@ function Layout() {
     
   }, [searchParams]);
 
+  function handleCheckboxChange(i, brand) {
+    let brandsParams = [];
+    const updatedCheckedState = checkedState.map((isChecked, index) =>
+      (index === i) ? !isChecked : isChecked
+    ); 
+    setCheckedState(updatedCheckedState);
+    for(let i=0; i<=brands.length; i++) {
+      if(updatedCheckedState[i]) {
+        brandsParams.push(brands[i])
+      }
+    }
+    setSearchParams({brand: brandsParams})
+  }
 
   return (
     <div
@@ -42,10 +58,11 @@ function Layout() {
           <li>
             <Link to="/cat1">All</Link>
           </li>
-          {brands.map((brand) => (
-            <li key={brand}>
-              <Link to={`/cat1?brand=${brand}`}>{brand}</Link>
-            </li>
+          {brands.map((brand,i) => (
+            <>
+              <input type="checkbox" id={`checkbox${i}`} name={brand} value={brand} checked={checkedState[i]} onChange={()=>handleCheckboxChange(i, brand)}/>
+              <label htmlFor={brand}>{brand}</label><br/>
+            </>
           ))}
         </ul>       
         <ul>

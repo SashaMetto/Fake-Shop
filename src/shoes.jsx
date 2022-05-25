@@ -73,9 +73,11 @@ export let sneakers = [
       return sneakers
     }
     else {  
-    return sneakers.filter(
-      (sneaker) => sneaker.brand.toLowerCase() === brand.toLowerCase()
-    );
+    return sneakers.filter(el => {
+       return brand.find(element => {
+      return element === el.brand;
+      });
+      });
     }
   }
 
