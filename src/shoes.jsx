@@ -65,28 +65,18 @@ export let sneakers = [
   ];
 
   export let brands = [...new Set(sneakers.map((sneaker) => sneaker.brand))];
-  export let prices = [...new Set(sneakers.map((sneaker) => sneaker.price))];
   export let colors = [...new Set(sneakers.map((sneaker) => sneaker.colorway))];
 
-  export function filterByBrand(brand) {
-    if(!brand) {
-      return sneakers
+  export function filterByBrands(brands, el) {
+    if (!brands) { return true }
+    else if (brands.includes(el.brand)) {
+        return true
     }
-    else {  
-    return sneakers.filter(el => {
-       return brand.find(element => {
-      return element === el.brand;
-      });
-      });
-    }
+    else return false;
   }
 
-  export function filterByPrice(from, to) {
-    return sneakers.filter(
-      (sneaker) => {
-        return (sneaker.price >= from && sneaker.price <= to)
-      }
-    );
+  export function filterByPrices(from=0, to=Infinity, el) {
+        return (el.price >= from && el.price <= to)
   }
 
   export function getSneakerById(id) {

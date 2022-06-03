@@ -9,40 +9,47 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
-import {sneakers, brands, colors, filterByBrand, filterByPrice} from "../shoes.jsx";
+import {sneakers, brands, colors, filterByBrands, filterByPrices} from "../shoes.jsx";
 import { Context, Context2 } from "../Context";
 import { AddCartItems } from "./cart";
 
 function Layout() {
-  let [searchParams, setSearchParams] = useSearchParams();
-  let [checkedState, setCheckedState] = useState(new Array(brands.length).fill(false));
-  let [test, setTest] = useState(new Array(brands.length).fill(false));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [checkedStateBrand, setCheckedStateBrand] = useState(new Array(brands.length).fill(false));
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
   const [sneak, setSneak] = useContext(Context);
    useEffect(() => {
-    if (searchParams.get("brand")) {
-      setSneak((filterByBrand(searchParams.getAll("brand"))))
-    }
-    else if(searchParams.get("priceTo")) {
-      setSneak((filterByPrice(searchParams.get("priceFrom"), searchParams.get("priceTo"))))
-    }
-    else {
-      setSneak(sneakers)
-    }
-    
+    setPriceFrom(searchParams.get("priceFrom"));
+    setPriceTo(searchParams.get("priceTo"));
+    let searchBrands = searchParams.getAll("brand").toString().split(",");
+    let filtered = sneak.filter(sneaker => filterByBrands(searchBrands, sneaker) && filterByPrices(searchParams.get("priceFrom"), searchParams.get("priceTo"),sneaker))
+    setSneak(filtered)
   }, [searchParams]);
 
-  function handleCheckboxChange(i, brand) {
+  function handleCheckboxChangeBrand(i, brand) {
     let brandsParams = [];
-    const updatedCheckedState = checkedState.map((isChecked, index) =>
+    const updatedCheckedState = checkedStateBrand.map((isChecked, index) =>
       (index === i) ? !isChecked : isChecked
     ); 
-    setCheckedState(updatedCheckedState);
+    setCheckedStateBrand(updatedCheckedState);
     for(let i=0; i<=brands.length; i++) {
       if(updatedCheckedState[i]) {
         brandsParams.push(brands[i])
       }
     }
-    setSearchParams({brand: brandsParams})
+    searchParams.set("brand", brandsParams);
+    setSearchParams(searchParams)
+  }
+
+  function handlePriceChangeFrom(event) {   
+    searchParams.set("priceFrom", event.target.value);
+    setSearchParams(searchParams)
+  }
+
+  function handlePriceChangeTo(event) {
+    searchParams.set("priceTo", event.target.value)
+    setSearchParams(searchParams)
   }
 
   return (
@@ -55,30 +62,17 @@ function Layout() {
       <nav>        
         <ul>
         <h3>Filter by brand</h3>
-          <li>
-            <Link to="/cat1">All</Link>
-          </li>
           {brands.map((brand,i) => (
             <>
-              <input type="checkbox" id={`checkbox${i}`} name={brand} value={brand} checked={checkedState[i]} onChange={()=>handleCheckboxChange(i, brand)}/>
+              <input type="checkbox" id={`checkbox-for-brand${i}`} name={brand} value={brand} checked={checkedStateBrand[i]} onChange={()=>handleCheckboxChangeBrand(i, brand)}/>
               <label htmlFor={brand}>{brand}</label><br/>
             </>
           ))}
         </ul>       
         <ul>
         <h3>Filter by price</h3>
-          <li>
-            <Link to="/cat1">All</Link>
-          </li>
-          <li>
-            <Link to={`/cat1?priceFrom=${0}&priceTo=${100}`}>Lower than 100$</Link>
-          </li>
-          <li>
-            <Link to={`/cat1?priceFrom=${100}&priceTo=${200}`}>From 100$ to 200$</Link>
-          </li>
-          <li>        
-            <Link to={`/cat1?priceFrom=${200}&priceTo=${Infinity}`}>More than 200$</Link>
-          </li>
+        <input type="text" id="price-from" name="price-from" value={priceFrom} onChange={handlePriceChangeFrom}/>
+        <input type="text" id="price-to" name="price-to" value={priceTo} onChange={handlePriceChangeTo}/> 
         </ul>
         <ul>
         <h3>Filter by color</h3>
@@ -86,7 +80,8 @@ function Layout() {
             <li key={color}>
               <Link to={`/cat1?color=${color}`}>{color}</Link>
             </li>
-          ))} 
+          ))}
+        <p>Found {sneak.length} items</p> 
         </ul>
       </nav>
     </div>
