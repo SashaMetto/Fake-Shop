@@ -68,7 +68,7 @@ export let sneakers = [
   export let colors = [...new Set(sneakers.map((sneaker) => sneaker.colorway))];
 
   export function filterByBrands(brands, el) {
-    if (!brands) { return true }
+    if (brands.length <= 0) { return true }
     else if (brands.includes(el.brand)) {
         return true
     }
@@ -76,7 +76,7 @@ export let sneakers = [
   }
 
   export function filterByColors(colors, el) {
-    if (!colors) { return true }
+    if (colors.length <= 0) { return true }
     else if (colors.includes(el.colorway)) {
         return true
     }

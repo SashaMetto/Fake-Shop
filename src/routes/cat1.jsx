@@ -136,7 +136,7 @@ function Layout() {
           ))}
         </ul>       
         <ul>
-        <h3>Filter by price</h3>
+        <h3>Filter by price, $</h3>
         <input type="text" id="price-from" name="price-from" value={priceFrom} onChange={handlePriceChangeFrom}/>
         <input type="text" id="price-to" name="price-to" value={priceTo} onChange={handlePriceChangeTo}/> 
         </ul>
