@@ -54,3 +54,25 @@ a {
     transform: translate3d(70vw, 0, 0);
     overflow: hidden;
   }
+.cart-count {
+    position: relative;
+    top: -15px;
+    left: -13px;
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.cart-closing-field.show {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed; 
+    z-index: 1000;
+    background-color: rgba(63, 61, 61, 0.6);
+    transition: 0.3s;
+}

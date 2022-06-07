@@ -17,7 +17,8 @@ export default function Cart(props) {
         }
     }
     return (
-      <main onClick={props.onClick}className={`cart ${visibility}`}>
+      <div onClick={props.onClick} className={`cart-closing-field ${visibility}`}>
+      <main onClick={props.onClick} className={`cart ${visibility}`}>       
         <h1>Cart</h1>
         {cartItems.map((e, i) => {
           let name = `${e.brand} ${e.model}`;
@@ -45,5 +46,6 @@ export default function Cart(props) {
           );
         })}
       </main>
+      </div>
     );
   }

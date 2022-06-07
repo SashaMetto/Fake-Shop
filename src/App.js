@@ -68,6 +68,7 @@ function AppLayout() {
         <img className="nav__searchbutton nav___medium" alt="search" src={search}></img>
         <img className="nav__profilebutton nav___medium" alt="profile" src={profile}></img>
         <img className="nav__cartbutton nav___medium" alt="cart" src={cart} onClick={toggleMenu}></img>
+        <span className="cart-count">{cartItems.length || ""}</span>
         </div>
         <Cart onClick={toggleMenu} menuVisibility={cartVisible} />
       </nav>
