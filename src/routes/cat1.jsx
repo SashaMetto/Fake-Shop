@@ -9,38 +9,42 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { LinkProps } from "react-router-dom";
-import {sneakers, brands, colors, filterByBrands, filterByPrices} from "../shoes.jsx";
+import {sneakers, brands, colors, filterByBrands, filterByPrices, filterByColors} from "../shoes.jsx";
 import { Context, Context2 } from "../Context";
 import { AddCartItems } from "./cart";
 
 function Layout() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkedStateBrand, setCheckedStateBrand] = useState(new Array(brands.length).fill(false));
+  const [checkedStateColor, setCheckedStateColor] = useState(new Array(brands.length).fill(false));
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
   const [sneak, setSneak] = useContext(Context);
    useEffect(() => {
+    let copyBrand = searchParams.getAll("brand");
+    let copyColor = searchParams.getAll("color");
+    copyBrand.forEach((brand)=>{
+      const index = brands.indexOf(brand);
+      if(index>-1) {
+      checkedStateBrand[index]=brand;
+      setCheckedStateBrand(checkedStateBrand)
+      }
+    })
+    copyColor.forEach((color)=>{
+      const index = colors.indexOf(color);
+      if(index>-1) {
+      checkedStateColor[index]=color;
+      setCheckedStateColor(checkedStateColor)
+      }
+    })
     setPriceFrom(searchParams.get("priceFrom"));
     setPriceTo(searchParams.get("priceTo"));
-    let searchBrands = searchParams.getAll("brand").toString().split(",");
-    let filtered = sneak.filter(sneaker => filterByBrands(searchBrands, sneaker) && filterByPrices(searchParams.get("priceFrom"), searchParams.get("priceTo"),sneaker))
+    let filtered = sneakers.filter(sneaker => filterByBrands(searchParams.getAll("brand"), sneaker) &&
+    filterByPrices(searchParams.get("priceFrom"), searchParams.get("priceTo"), sneaker) &&
+    filterByColors(searchParams.getAll("color"), sneaker))
     setSneak(filtered)
   }, [searchParams]);
 
-  function handleCheckboxChangeBrand(i, brand) {
-    let brandsParams = [];
-    const updatedCheckedState = checkedStateBrand.map((isChecked, index) =>
-      (index === i) ? !isChecked : isChecked
-    ); 
-    setCheckedStateBrand(updatedCheckedState);
-    for(let i=0; i<=brands.length; i++) {
-      if(updatedCheckedState[i]) {
-        brandsParams.push(brands[i])
-      }
-    }
-    searchParams.set("brand", brandsParams);
-    setSearchParams(searchParams)
-  }
 
   function handlePriceChangeFrom(event) {   
     searchParams.set("priceFrom", event.target.value);
@@ -50,6 +54,68 @@ function Layout() {
   function handlePriceChangeTo(event) {
     searchParams.set("priceTo", event.target.value)
     setSearchParams(searchParams)
+  }
+
+  function handleBrandChange(brand, ind) {
+    let array = searchParams.getAll('brand');
+    const index = array.indexOf(brand);   
+    if(checkedStateBrand[ind]) {
+      checkedStateBrand[ind]=false;
+      setCheckedStateBrand(checkedStateBrand);
+    }
+    else if(!checkedStateBrand[ind]) {
+      checkedStateBrand[ind]=brand;
+      setCheckedStateBrand(checkedStateBrand);
+    }
+    if (index > -1) {
+      array.splice(index, 1)
+      console.log(array)
+      searchParams.delete("brand")
+      for(let i=0; i<= array.length-1; i++) {
+        searchParams.append("brand", array[i])
+      }     
+      setSearchParams(searchParams)
+      if(array.length < 1) {
+        searchParams.delete("brand")
+        setSearchParams(searchParams)
+      }
+    }
+     
+    else { 
+      searchParams.append("brand", brand);
+      setSearchParams(searchParams);
+     }
+  }
+
+  function handleColorChange(color, ind) {
+    let array = searchParams.getAll('color');
+    const index = array.indexOf(color);   
+    if(checkedStateColor[ind]) {
+      checkedStateColor[ind]=false;
+      setCheckedStateColor(checkedStateColor);
+    }
+    else if(!checkedStateColor[ind]) {
+      checkedStateColor[ind]=color;
+      setCheckedStateColor(checkedStateColor);
+    }
+    if (index > -1) {
+      array.splice(index, 1)
+      console.log(array)
+      searchParams.delete("color")
+      for(let i=0; i<= array.length-1; i++) {
+        searchParams.append("color", array[i])
+      }     
+      setSearchParams(searchParams)
+      if(array.length < 1) {
+        searchParams.delete("color")
+        setSearchParams(searchParams)
+      }
+    }
+     
+    else { 
+      searchParams.append("color", color);
+      setSearchParams(searchParams);
+     }
   }
 
   return (
@@ -64,7 +130,7 @@ function Layout() {
         <h3>Filter by brand</h3>
           {brands.map((brand,i) => (
             <>
-              <input type="checkbox" id={`checkbox-for-brand${i}`} name={brand} value={brand} checked={checkedStateBrand[i]} onChange={()=>handleCheckboxChangeBrand(i, brand)}/>
+              <input type="checkbox" id={`checkbox-for-${brands}${i}`} name={brand} value={brand} checked={checkedStateBrand[i]} onChange={()=>handleBrandChange(brand, i)}/>
               <label htmlFor={brand}>{brand}</label><br/>
             </>
           ))}
@@ -76,10 +142,11 @@ function Layout() {
         </ul>
         <ul>
         <h3>Filter by color</h3>
-        {colors.map((color) => (
-            <li key={color}>
-              <Link to={`/cat1?color=${color}`}>{color}</Link>
-            </li>
+        {colors.map((color, i) => (
+            <>
+            <input type="checkbox" id={`checkbox-for-${colors}${i}`} name={color} value={color} checked={checkedStateColor[i]} onChange={()=>handleColorChange(color, i)}/>
+            <label htmlFor={color}>{color}</label><br/>
+          </>
           ))}
         <p>Found {sneak.length} items</p> 
         </ul>

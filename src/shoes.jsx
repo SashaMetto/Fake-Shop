@@ -75,7 +75,21 @@ export let sneakers = [
     else return false;
   }
 
-  export function filterByPrices(from=0, to=Infinity, el) {
+  export function filterByColors(colors, el) {
+    if (!colors) { return true }
+    else if (colors.includes(el.colorway)) {
+        return true
+    }
+    else return false;
+  }
+
+  export function filterByPrices(from, to, el) {
+    if(!from) {
+      from = 0
+    }
+    if(!to) {
+      to = Infinity
+    }
         return (el.price >= from && el.price <= to)
   }
 
