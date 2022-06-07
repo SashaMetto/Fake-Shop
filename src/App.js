@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import search from "./images/search.webp"
 import profile from "./images/profile.webp"
@@ -44,6 +44,12 @@ export default function App() {
 
 function AppLayout() {
   const navigate = useNavigate();
+  const [cartVisible, setCartVisible] = useState(false);
+  const [cartItems, setCartItems] = useContext(Context2);
+
+  function toggleMenu() {
+    setCartVisible(!cartVisible)
+  }
   return (
     <div className="App">
       
@@ -61,8 +67,9 @@ function AppLayout() {
         <input></input>
         <img className="nav__searchbutton nav___medium" alt="search" src={search}></img>
         <img className="nav__profilebutton nav___medium" alt="profile" src={profile}></img>
-        <img className="nav__cartbutton nav___medium" alt="profile" src={cart} onClick={()=>navigate("/cart")}></img>
+        <img className="nav__cartbutton nav___medium" alt="cart" src={cart} onClick={toggleMenu}></img>
         </div>
+        <Cart onClick={toggleMenu} menuVisibility={cartVisible} />
       </nav>
       <Outlet/>
     </div>

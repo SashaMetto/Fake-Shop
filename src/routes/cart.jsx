@@ -1,8 +1,14 @@
 import React, {useState, useEffect, useContext} from "react";
 import { Context2 } from "../Context";
 
-export default function Cart() {
+export default function Cart(props) {
     const [cartItems, setCartItems] = useContext(Context2);
+    let visibility = "hide";
+ 
+    if (props.menuVisibility) {
+      visibility = "show";
+    }
+    
     function cartItemCount(operator,i) {
         if(operator==="plus") {
             let copy = [...cartItems];
@@ -11,10 +17,7 @@ export default function Cart() {
         }
     }
     return (
-      <main style={{
-           padding: "1rem 0",
-           textAlign: "center",
-         }}>
+      <main onClick={props.onClick}className={`cart ${visibility}`}>
         <h1>Cart</h1>
         {cartItems.map((e, i) => {
           let name = `${e.brand} ${e.model}`;
