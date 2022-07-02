@@ -1,8 +1,20 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
 a {
     font-size: 20px;
 }
+.nav__link {
+    color: black;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+.nav__link:hover {
+    color: red;
+    text-decoration: none;
+}
 .nav {
-    border: 2px solid black;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,17 +22,33 @@ a {
 .nav__search__profile__currency__cart{
     display: inline-flex;
     align-items: center;
-    border: 2px solid red;
+
 }
 .nav__links{
-    width: 70%;
+    width: 60%;
 }
 .nav__link{
     margin-right: 20px;
 }
+.nav__searchfield{
+    border: none;
+    border: 2px solid black;
+    border-radius: 10px 0px 0px 10px;
+    border-right: none;
+    height: 35px;
+    color:grey;
+    font-size: 20px;
+}
+img.nav__searchbutton.nav___medium{
+    border: 2px solid black;
+    margin-right: 20px;
+    height: 37px;
+    width: 37px;
+    border-radius: 0px 10px 10px 0px;
+}
 .nav___medium{
     width: 30px;
-    border: 2px solid black;
+    margin-right: 5px;
 }
 .shoes-shop{
     display: flex;
@@ -42,6 +70,7 @@ a {
   overflow: scroll;
   z-index: 1000;
   display: flex;
+  align-items: baseline;
   flex-direction: column;
   padding-left: 5%;
 }
@@ -59,7 +88,7 @@ a {
     top: -15px;
     left: -13px;
     background-color: red;
-    border: 1px solid red;
+
     color: white;
     border-radius: 50%;
     width: 20px;
@@ -75,4 +104,27 @@ a {
     z-index: 1000;
     background-color: rgba(63, 61, 61, 0.6);
     transition: 0.3s;
+}
+.home_promotion {
+    display: flex;
+}
+.home_promotion_Nike {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 70px;
+    width: 100%;
+}
+.home_promotion_Nike.home_promotion_Nike__header {
+    margin: 0;
+}
+.home_promotion_Nike.home_promotion_Nike__button {
+    width: 300px;
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
 }

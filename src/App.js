@@ -17,6 +17,7 @@ import Cat3 from "./routes/cat3";
 import Gall from "./routes/gall";
 import Contact from "./routes/contact";
 import Cart from "./routes/cart";
+import Home from "./routes/home";
 import {sneakers, brands, prices, filterByBrand} from "./shoes.jsx";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppLayout />} >
+          <Route path="/home" element={<Home />} />
           <Route path="/cat1" element={<Cat1 />} />
           <Route path="/cat2" element={<Cat2 />} />
           <Route path="/cat3" element={<Cat3 />} />
@@ -56,7 +58,7 @@ function AppLayout() {
       <nav className="nav">
       <h1 className="nav__header">Fake store</h1>
       <div className="nav__links">  
-        <Link className="nav__link" to="/">Home</Link>
+        <Link className="nav__link" to="/home">Home</Link>
         <Link className="nav__link" to="/cat1">Shoes</Link>
         <Link className="nav__link" to="/cat2">Cat2</Link>
         <Link className="nav__link" to="/cat3">Cat3</Link>
@@ -64,7 +66,7 @@ function AppLayout() {
         <Link className="nav__link" to="/contact">Contact</Link>
         </div>
         <div className="nav__search__profile__currency__cart">
-        <input></input>
+        <input className="nav__searchfield"></input>
         <img className="nav__searchbutton nav___medium" alt="search" src={search}></img>
         <img className="nav__profilebutton nav___medium" alt="profile" src={profile}></img>
         <img className="nav__cartbutton nav___medium" alt="cart" src={cart} onClick={toggleMenu}></img>

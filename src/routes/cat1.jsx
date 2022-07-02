@@ -122,7 +122,6 @@ function Layout() {
     <div
     style={{
       width: "30%",
-      border: "2px solid red"
     }}
     >
       <nav>        
