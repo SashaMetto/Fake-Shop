@@ -1,74 +1,89 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
 }
 a {
-    font-size: 20px;
+  font-size: 20px;
 }
 .nav__link {
-    color: black;
-    text-decoration: none;
-    transition-duration: 0.3s;
+  color: black;
+  text-decoration: none;
+  transition-duration: 0.3s;
 }
 .nav__link:hover {
-    color: red;
-    text-decoration: none;
+  color: red;
+  text-decoration: none;
 }
 .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  height: 70px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(5px);
+  z-index: 1;
 }
-.nav__search__profile__currency__cart{
-    display: inline-flex;
-    align-items: center;
 
+.nav__search__profile__currency__cart {
+  display: inline-flex;
+  align-items: center;
 }
-.nav__links{
-    width: 60%;
+.nav__header {
+  margin-left: 10px;
+  margin-right: 15px;
 }
-.nav__link{
-    margin-right: 20px;
+.nav__links {
+  width: 60%;
 }
-.nav__searchfield{
-    border: none;
-    border: 2px solid black;
-    border-radius: 10px 0px 0px 10px;
-    border-right: none;
-    height: 35px;
-    color:grey;
-    font-size: 20px;
+.nav__link {
+  margin-right: 20px;
 }
-img.nav__searchbutton.nav___medium{
-    border: 2px solid black;
-    margin-right: 20px;
-    height: 37px;
-    width: 37px;
-    border-radius: 0px 10px 10px 0px;
+.nav__searchfield {
+  border: none;
+  border: 2px solid black;
+  border-radius: 10px 0px 0px 10px;
+  border-right: none;
+  height: 35px;
+  color: grey;
+  font-size: 20px;
 }
-.nav___medium{
-    width: 30px;
-    margin-right: 5px;
+img.nav__searchbutton.nav___medium {
+  border: 2px solid black;
+  margin-right: 20px;
+  height: 37px;
+  width: 37px;
+  border-radius: 0px 10px 10px 0px;
 }
-.shoes-shop{
-    display: flex;
+.nav___medium {
+  cursor: pointer;
+  width: 30px;
+  margin-right: 5px;
 }
-.shoes-wrapper{
-    border: 2px solid black;
-    width: 100%;
-    text-align: center;
+.shoes-shop,
+.phones-shop {
+  display: flex;
+  margin-top: 70px;
+  width: 100%;
+}
+.shoes-wrapper,
+.phones-wrapper {
+  width: 100%;
+  text-align: center;
 }
 .cart {
-    width: 30vw;
+  width: 25vw;
   height: 100vh;
-  background-color: #FFE600;
+  background-color: #ffe600;
   position: fixed;
   top: 0;
   left: 0;
-  transition: transform .3s
-              cubic-bezier(0, .52, 0, 1);
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
   overflow: scroll;
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   align-items: baseline;
   flex-direction: column;
@@ -76,55 +91,138 @@ img.nav__searchbutton.nav___medium{
 }
 
 .cart.hide {
-    transform: translate3d(130vw, 0, 0);
-    transition: transform .3s
-  }
+  transform: translate3d(130vw, 0, 0);
+  transition: transform 0.3s;
+}
 .cart.show {
-    transform: translate3d(70vw, 0, 0);
-    overflow: hidden;
-  }
+  transform: translate3d(70vw, 0, 0);
+  overflow: hidden;
+}
 .cart-count {
-    position: relative;
-    top: -15px;
-    left: -13px;
-    background-color: red;
+  position: relative;
+  top: -15px;
+  left: -13px;
+  background-color: red;
+  cursor: pointer;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
 
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    text-align: center;
+.cart-count-hide {
+  display: none;
 }
 .cart-closing-field.show {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    position: fixed; 
-    z-index: 1000;
-    background-color: rgba(63, 61, 61, 0.6);
-    transition: 0.3s;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+  background-color: rgba(63, 61, 61, 0.6);
+  transition: 0.3s;
 }
 .home_promotion {
-    display: flex;
+  margin-top: 30px;
+  display: flex;
 }
 .home_promotion_Nike {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 70px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 70px;
+  width: 100%;
+  background-color: whitesmoke;
 }
 .home_promotion_Nike.home_promotion_Nike__header {
-    margin: 0;
+  margin: 0;
 }
-.home_promotion_Nike.home_promotion_Nike__button {
-    width: 300px;
-    margin-top: 30px;
-    font-size: 30px;
-    font-weight: 500;
-    height: 50px;
-    background-color: white;
-    border: 2px solid black;
+.home_promotion_iPhone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 70px;
+  width: 100%;
+}
+.home_promotion_iPhone.home_promotion_iPhone__header {
+  font-size: 50px;
+  margin: 0;
+}
+.button-small {
+  width: 25px;
+  height: 25px;
+  margin: 7px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+.button-small:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.button-medium {
+  width: 105px;
+  height: 25px;
+  margin: 1px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+.button-medium:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.promotion___button {
+  width: 300px;
+  margin-top: 30px;
+  font-size: 30px;
+  font-weight: 500;
+  height: 50px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+.promotion___button:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+.home_promotion_s22 {
+  position: relative;
+}
+.home_promotion_s22__data {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  font-size: 130px;
+  color: white;
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
+  font-weight: 500;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-left: 40px;
+  margin-right: 10px;
 }
