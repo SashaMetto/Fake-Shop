@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import { CartContext } from "../Context";
 
@@ -10,8 +10,7 @@ export default function Cart(props: any) {
     visibility = "show";
   }
 
-  function cartItemCount(operator: string, i: number) {
-    console.log(cartItems);
+  function cartItemCount(operator: string, i: number): void {
     let copy = [...cartItems];
     if (operator === "plus") {
       copy[i]["count"]++;
@@ -25,7 +24,10 @@ export default function Cart(props: any) {
       setCartItems(copy);
     }
   }
-  function stop(e) {
+  function stop(e: {
+    stopPropagation: () => void;
+    nativeEvent: { stopImmediatePropagation: () => void };
+  }) {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
   }
@@ -50,7 +52,7 @@ export default function Cart(props: any) {
             overflow: "scroll",
           }}
         >
-          {cartItems.map((e, i) => {
+          {cartItems.map((e: any, i: number) => {
             let name = `${e.brand} ${e.model}`;
             let color = e.colorway;
             let price = e.price * e.count + "$";

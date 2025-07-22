@@ -1,11 +1,13 @@
-export let sneakers: {
+export interface Sneaker {
   id: string;
   colorway: string;
   imageUrl: string;
   model: string;
   brand: string;
   price: number;
-}[] = [
+  count?: number;
+}
+export const sneakers: Sneaker[] = [
   {
     id: "shoe-1",
     colorway: "Pine Green",
@@ -74,7 +76,7 @@ export let sneakers: {
 export const brands = [...new Set(sneakers.map((sneaker) => sneaker.brand))];
 export const colors = [...new Set(sneakers.map((sneaker) => sneaker.colorway))];
 
-export function filterByBrands(brands: string, el: any) {
+export function filterByBrands(brands: string, el: any): boolean {
   if (brands.length <= 0) {
     return true;
   } else if (brands.includes(el.brand)) {
@@ -82,7 +84,7 @@ export function filterByBrands(brands: string, el: any) {
   } else return false;
 }
 
-export function filterByColors(colors: string, el: any) {
+export function filterByColors(colors: string, el: any): boolean {
   if (colors.length <= 0) {
     return true;
   } else if (colors.includes(el.colorway)) {
@@ -90,7 +92,7 @@ export function filterByColors(colors: string, el: any) {
   } else return false;
 }
 
-export function filterByPrices(from: number, to: number, el: any) {
+export function filterByPrices(from: number, to: number, el: any): boolean {
   if (!from) {
     from = 0;
   }
@@ -100,6 +102,6 @@ export function filterByPrices(from: number, to: number, el: any) {
   return el.price >= from && el.price <= to;
 }
 
-export function getSneakerById(id: string) {
+export function getSneakerById(id: string): Sneaker | undefined {
   return sneakers.find((sneaker) => sneaker.id === id);
 }

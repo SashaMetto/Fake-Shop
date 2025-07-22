@@ -13,7 +13,7 @@ import Home from "./routes/home";
 import { sneakers } from "./shoes.tsx";
 import { phones } from "./phones.tsx";
 
-export default function App() {
+export default function App(): React.JSX.Element {
   const [sneak, setSneak] = useState(sneakers);
   const [phone, setPhone] = useState(phones);
   const [cartItems, setCartItems] = useState([]);
@@ -37,7 +37,7 @@ export default function App() {
   );
 }
 
-function AppLayout() {
+function AppLayout(): React.JSX.Element {
   const navigate = useNavigate();
   const [cartVisible, setCartVisible] = useState(false);
   const [cartItems, setCartItems] = useContext(CartContext);

@@ -1,11 +1,14 @@
-export let phones: {
+export interface Phone {
   id: string;
   color: string;
   imageUrl: string;
   model: string;
   brand: string;
   price: number;
-}[] = [
+  count?: number;
+}
+
+export const phones: Phone[] = [
   {
     id: "1",
     color: "Black",
@@ -86,6 +89,6 @@ export function filterByPrices(from: number, to: number, el: any): boolean {
   return el.price >= from && el.price <= to;
 }
 
-export function getPhonesById(id: string): any {
+export function getPhonesById(id: string): Phone | undefined {
   return phones.find((phone) => phone.id === id);
 }

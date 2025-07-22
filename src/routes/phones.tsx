@@ -8,10 +8,11 @@ import {
   filterByBrands,
   filterByPrices,
   filterByColors,
+  Phone,
 } from "../phones.tsx";
 import { PhoneContext, CartContext } from "../Context.tsx";
 
-function Layout() {
+function Layout(): React.JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkedStateBrand, setCheckedStateBrand] = useState(
     new Array(brands.length).fill(false)
@@ -39,8 +40,8 @@ function Layout() {
         setCheckedStateColor(checkedStateColor);
       }
     });
-    setPriceFrom(searchParams.get("priceFrom"));
-    setPriceTo(searchParams.get("priceTo"));
+    setPriceFrom(searchParams.get("priceFrom")!);
+    setPriceTo(searchParams.get("priceTo")!);
     let filtered = phones.filter(
       (phone) =>
         filterByBrands(searchParams.getAll("brand"), phone) &&
@@ -54,17 +55,17 @@ function Layout() {
     setPhone(filtered);
   }, [searchParams]);
 
-  function handlePriceChangeFrom(event) {
+  function handlePriceChangeFrom(event: { target: { value: string } }) {
     searchParams.set("priceFrom", event.target.value);
     setSearchParams(searchParams);
   }
 
-  function handlePriceChangeTo(event) {
+  function handlePriceChangeTo(event: { target: { value: string } }) {
     searchParams.set("priceTo", event.target.value);
     setSearchParams(searchParams);
   }
 
-  function handleBrandChange(brand, ind) {
+  function handleBrandChange(brand: string, ind: number): void {
     let array = searchParams.getAll("brand");
     const index = array.indexOf(brand);
     if (checkedStateBrand[ind]) {
@@ -92,7 +93,7 @@ function Layout() {
     }
   }
 
-  function handleColorChange(color, ind) {
+  function handleColorChange(color: string, ind: number): void {
     let array = searchParams.getAll("color");
     const index = array.indexOf(color);
     if (checkedStateColor[ind]) {
@@ -129,7 +130,7 @@ function Layout() {
       <nav>
         <ul>
           <h3>Filter by brand</h3>
-          {brands.map((brand, i) => (
+          {brands.map((brand: string, i: number) => (
             <>
               <input
                 type="checkbox"
@@ -163,7 +164,7 @@ function Layout() {
         </div>
         <ul>
           <h3>Filter by color</h3>
-          {colors.map((color, i) => (
+          {colors.map((color: string, i: number) => (
             <>
               <input
                 type="checkbox"
@@ -188,10 +189,10 @@ export default function Phones() {
   const [phones, setPhones] = useContext(PhoneContext);
   const [cartItems, setCartItems] = useContext(CartContext);
 
-  function addCartItems(item) {
+  function addCartItems(item: Phone) {
     let copy = [...cartItems];
     if (copy.includes(item)) {
-      item.count++;
+      item.count!++;
       setCartItems(copy);
     } else {
       item.count = 1;
@@ -211,7 +212,7 @@ export default function Phones() {
             gap: "12px 24px",
           }}
         >
-          {phones.map((phone) => {
+          {phones.map((phone: Phone) => {
             let name = `${phone.brand} ${phone.model}`;
             let color = phone.color;
             let price = phone.price + "$";

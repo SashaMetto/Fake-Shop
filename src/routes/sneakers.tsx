@@ -9,6 +9,7 @@ import {
   filterByPrices,
   filterByColors,
 } from "../shoes.tsx";
+import { Sneaker } from "../shoes";
 import { SneakersContext, CartContext } from "../Context.tsx";
 
 function Layout(): React.JSX.Element {
@@ -39,8 +40,8 @@ function Layout(): React.JSX.Element {
         setCheckedStateColor(checkedStateColor);
       }
     });
-    setPriceFrom(searchParams.get("priceFrom"));
-    setPriceTo(searchParams.get("priceTo"));
+    setPriceFrom(searchParams.get("priceFrom")!);
+    setPriceTo(searchParams.get("priceTo")!);
     let filtered = sneakers.filter(
       (sneaker) =>
         filterByBrands(searchParams.getAll("brand"), sneaker) &&
@@ -129,7 +130,7 @@ function Layout(): React.JSX.Element {
       <nav>
         <ul>
           <h3>Filter by brand</h3>
-          {brands.map((brand, i) => (
+          {brands.map((brand: string, i: number) => (
             <>
               <input
                 type="checkbox"
@@ -163,7 +164,7 @@ function Layout(): React.JSX.Element {
         </div>
         <ul>
           <h3>Filter by color</h3>
-          {colors.map((color, i) => (
+          {colors.map((color: string, i: number) => (
             <>
               <input
                 type="checkbox"
@@ -188,10 +189,10 @@ export default function Shoes() {
   const [sneak, setSneak] = useContext(SneakersContext);
   const [cartItems, setCartItems] = useContext(CartContext);
 
-  function addCartItems(item: null) {
+  function addCartItems(item: Sneaker) {
     let copy = [...cartItems];
     if (copy.includes(item)) {
-      item.count++;
+      item.count!++;
       setCartItems(copy);
     } else {
       item.count = 1;
@@ -212,7 +213,7 @@ export default function Shoes() {
             gap: "12px 24px",
           }}
         >
-          {sneak.map((snkr: any) => {
+          {sneak.map((snkr: Sneaker) => {
             let name = `${snkr.brand} ${snkr.model}`;
             let color = snkr.colorway;
             let price = snkr.price + "$";

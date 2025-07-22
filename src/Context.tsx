@@ -1,4 +1,6 @@
 import React from "react";
-export const PhoneContext = React.createContext();
-export const SneakersContext = React.createContext();
-export const CartContext = React.createContext();
+import { Phone } from "../phones";
+import { Sneaker } from "../shoes";
+export const PhoneContext = React.createContext<Phone[]>([]);
+export const SneakersContext = React.createContext<Sneaker[]>([]);
+export const CartContext = React.createContext<any[]>([]);
