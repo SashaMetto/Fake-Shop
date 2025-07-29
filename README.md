@@ -1,6 +1,6 @@
 # Fake-Shop
 
-Online Shopping Cart E-Commerce Website Project in React JS. Featuring product viewing, category filtering and cart management.
+Online Shopping Cart E-Commerce Website Project in React and Typescript. Featuring product viewing, category filtering and cart management.
 
 ## Run Locally
 
