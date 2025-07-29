@@ -67,19 +67,19 @@ export const phones: Phone[] = [
 export let brands: string[] = [...new Set(phones.map((phone) => phone.brand))];
 export let colors: string[] = [...new Set(phones.map((phone) => phone.color))];
 
-export function filterByBrands(brands: string, el: any): boolean {
+export function filterByBrands(brands: string[], el: Phone): boolean {
   if (brands.length <= 0 || brands.includes(el.brand)) {
     return true;
   } else return false;
 }
 
-export function filterByColors(colors: string, el: any): boolean {
+export function filterByColors(colors: string[], el: Phone): boolean {
   if (colors.length <= 0 || colors.includes(el.color)) {
     return true;
   } else return false;
 }
 
-export function filterByPrices(from: number, to: number, el: any): boolean {
+export function filterByPrices(from: number, to: number, el: Phone): boolean {
   if (!from) {
     from = 0;
   }

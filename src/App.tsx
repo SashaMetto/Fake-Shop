@@ -16,7 +16,7 @@ import { phones } from "./phones.tsx";
 export default function App(): React.JSX.Element {
   const [sneak, setSneak] = useState(sneakers);
   const [phone, setPhone] = useState(phones);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<any>([]);
   return (
     <CartContext.Provider value={[cartItems, setCartItems]}>
       <PhoneContext.Provider value={[phone, setPhone]}>
@@ -43,7 +43,7 @@ function AppLayout(): React.JSX.Element {
   const [cartItems, setCartItems] = useContext(CartContext);
 
   useEffect(() => {
-    return navigate("/home");
+    navigate("/home");
   }, []);
 
   function toggleMenu() {

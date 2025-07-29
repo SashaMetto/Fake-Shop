@@ -20,8 +20,8 @@ function Layout(): React.JSX.Element {
   const [checkedStateColor, setCheckedStateColor] = useState(
     new Array(brands.length).fill(false)
   );
-  const [priceFrom, setPriceFrom] = useState("");
-  const [priceTo, setPriceTo] = useState("");
+  const [priceFrom, setPriceFrom] = useState(null);
+  const [priceTo, setPriceTo] = useState(null);
   const [phone, setPhone] = useContext(PhoneContext);
   useEffect(() => {
     let copyBrand = searchParams.getAll("brand");
@@ -46,8 +46,8 @@ function Layout(): React.JSX.Element {
       (phone) =>
         filterByBrands(searchParams.getAll("brand"), phone) &&
         filterByPrices(
-          searchParams.get("priceFrom"),
-          searchParams.get("priceTo"),
+          Number(searchParams.get("priceFrom")),
+          Number(searchParams.get("priceTo")),
           phone
         ) &&
         filterByColors(searchParams.getAll("color"), phone)
@@ -148,14 +148,14 @@ function Layout(): React.JSX.Element {
         <div className="price-filter">
           <h3>Filter by price, $</h3>
           <input
-            type="text"
+            type="number"
             id="price-from"
             name="price-from"
             value={priceFrom}
             onChange={handlePriceChangeFrom}
           />
           <input
-            type="text"
+            type="number"
             id="price-to"
             name="price-to"
             value={priceTo}

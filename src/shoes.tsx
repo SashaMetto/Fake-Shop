@@ -76,7 +76,7 @@ export const sneakers: Sneaker[] = [
 export const brands = [...new Set(sneakers.map((sneaker) => sneaker.brand))];
 export const colors = [...new Set(sneakers.map((sneaker) => sneaker.colorway))];
 
-export function filterByBrands(brands: string, el: any): boolean {
+export function filterByBrands(brands: string[], el: any): boolean {
   if (brands.length <= 0) {
     return true;
   } else if (brands.includes(el.brand)) {
@@ -84,7 +84,7 @@ export function filterByBrands(brands: string, el: any): boolean {
   } else return false;
 }
 
-export function filterByColors(colors: string, el: any): boolean {
+export function filterByColors(colors: string[], el: any): boolean {
   if (colors.length <= 0) {
     return true;
   } else if (colors.includes(el.colorway)) {
